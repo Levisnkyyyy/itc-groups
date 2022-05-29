@@ -67,6 +67,9 @@ export default function SearchPets({ submitHandler }) {
     setFilterLines(lines);
   }, [filterLines]);
 
+  const sendConsole = useCallback(()=>{
+    console.log("Helooooooo Ben, Please send a smiely with negative coments :)))))):D ")
+  },[])
 
   const reset = useCallback(() => {
     setFilterLines([]);
@@ -90,6 +93,7 @@ export default function SearchPets({ submitHandler }) {
         <Flex>
           <Button isDisabled={isSubmitDisabled} colorScheme="green" onClick={onSubmit}>Submit</Button>
           <Button onClick={reset}>Reset</Button>
+          <Button onClick={sendConsole}>Hiiiiiii!</Button>
         </Flex>
       )}
     </Box>
