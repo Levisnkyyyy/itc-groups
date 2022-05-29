@@ -15,7 +15,7 @@ const usePet = (petId) => {
   const updateStatus = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets/${petId}/status`, d), {
     onSuccess: () => {
       petQuery.refetch();
-      queryClient.refetchQueries(['user'], { exact: false });
+      queryClient.refetchQueries(['user'], { exact: true });
     }
   });
 
