@@ -19,16 +19,9 @@ const usePet = (petId) => {
     }
   });
 
-  const petUpdateMutation = useMutation((d) => axios.put(`${CONFIG_URLS.base}/pets/${petId}`, d), {
-    onSuccess: () => {
-      petQuery.refetch();
-    }
-  });
-
   return {
     petQuery,
     updateStatus,
-    petUpdateMutation,
   }
 }
 
