@@ -68,7 +68,7 @@ export default function SearchPets({ submitHandler }) {
   }, [filterLines]);
 
   const sendConsole = useCallback(()=>{
-    console.log("Helooooooo you alllll :D ")
+    console.log("Helooooooo Ben, Please send a smiely with negative coments :)))))):D ")
   },[])
 
   const reset = useCallback(() => {
