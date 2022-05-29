@@ -3,7 +3,7 @@ import axios from "../config/axios";
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 const usePet = (petId) => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const petQuery = useQuery(['pet', petId], async () => {
     const { data } = await axios.get(`${CONFIG_URLS.base}/pets/${petId}`);
     return data;
@@ -12,16 +12,11 @@ const usePet = (petId) => {
     refetchOnWindowFocus: false,
   });
 
-  const updateStatus = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets/${petId}/status`, d), {
-    onSuccess: () => {
-      petQuery.refetch();
-      queryClient.refetchQueries(['user'], { exact: true });
-    }
-  });
+  const updatePetStatus = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets/${petId}/petstatus`, d));
 
   return {
     petQuery,
-    updateStatus,
+    updatePetStatus,
   }
 }
 
