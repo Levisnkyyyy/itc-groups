@@ -12,7 +12,11 @@ const usePet = (petId) => {
     refetchOnWindowFocus: false,
   });
 
-  const updatePetStatus = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets/${petId}/petstatus`, d));
+  const updateStatus = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets/${petId}/status`, d), {
+    onSuccess: () => {
+      console.log('ON SUCCESS');
+    }
+  });
 
   return {
     petQuery,
