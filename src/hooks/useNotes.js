@@ -14,7 +14,7 @@ import AuthContext from "../contexts/authContext";
 
 
 export default function useNotes() {
-  const [notes, setNotes] = useState([]);
+  const [myNotes, setMyNotes] = useState([]);
   const [filters, setFilters] = useState([]);
   const { displayName, userInfo } = useContext(AuthContext);
 
