@@ -1,42 +1,34 @@
-import { useMutation, useQuery } from 'react-query';
-import CONFIG_URLS from "../config/urls";
+import CONFIG_URLS from '../config/urls';
 import axios from "../config/axios";
-import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-export default function usePets() {
-  const [filter, setFilter] = useState([]);
-  const { data, isLoading, refetch: refetchPets } = useQuery(['pets', filter.map((f) => ({ ...f, id: undefined }))], async () => {
-    if (filter.length > 0) {
-      const response = await axios.post(`${CONFIG_URLS.base}/pets/search`, filter);
-      return response.data;
-    }
-    const response = await axios.get(`${CONFIG_URLS.base}/pets`);
-    return response.data;
-  }, {
-    placeholderData: [],
-    cacheTime: 60 * 60 * 60,
-    staleTime: Infinity,
-    refetchOnMount: true,
+const usePet = (petId) => {
+  const queryClient = useQueryClient();
+
+  const updateInfo = useMutation(async (data) => axios.put(`${CONFIG_URLS.base}/users`, data), {
+    onSuccess: (response) => {
+      queryClient.refetchQueries(['user']);
+      console.log(response.data, 'response success');
+    },
   });
 
-  const addNewPet = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets`, d), {
+
+  const pet223Query = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets/${petId}/status`, d), {
     onSuccess: () => {
-      refetchPets();
+      console.log('ON SUCCESS');
     }
   });
 
-  const deletePet = useMutation((petId) => axios.delete(`${CONFIG_URLS.base}/pets/${petId}`), {
+  const updateStatus = useMutation((d) => axios.post(`${CONFIG_URLS.base}/pets/${petId}/status`, d), {
     onSuccess: () => {
-      refetchPets();
+      console.log('ON SUCCESS');
     }
-  })
+  });
 
   return {
-    filter,
-    setFilter,
-    data,
-    isLoading,
-    addNewPet,
-    deletePet,
+    petQuery,
+    updatePetStatus,
   }
 }
+
+export default usePet;
